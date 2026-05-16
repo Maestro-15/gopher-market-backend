@@ -1,1 +1,37 @@
-rootProject.name = 'backend'
+rootProject.name = 'gopher-market-backend'
+
+include 'common'
+project(':common').projectDir = file('services/common')
+
+include 'api-gateway'
+project(':api-gateway').projectDir = file('services/api-gateway')
+
+include 'auth-service'
+project(':auth-service').projectDir = file('services/auth-service')
+
+include 'user-service'
+project(':user-service').projectDir = file('services/user-service')
+
+include 'product-service'
+project(':product-service').projectDir = file('services/product-service')
+
+include 'housing-service'
+project(':housing-service').projectDir = file('services/housing-service')
+
+include 'cart-service'
+project(':cart-service').projectDir = file('services/cart-service')
+
+include 'wishlist-service'
+project(':wishlist-service').projectDir = file('services/wishlist-service')
+
+include 'messaging-service'
+project(':messaging-service').projectDir = file('services/messaging-service')
+
+include 'request-service'
+project(':request-service').projectDir = file('services/request-service')
+
+include 'notification-service'
+project(':notification-service').projectDir = file('services/notification-service')
+
+include 'image-service'
+project(':image-service').projectDir = file('services/image-service')

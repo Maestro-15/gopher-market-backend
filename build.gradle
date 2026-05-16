@@ -1,29 +1,40 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '4.0.6'
-	id 'io.spring.dependency-management' version '1.1.7'
+	id 'org.springframework.boot' version "${springBootVersion}" apply false
+	id 'io.spring.dependency-management' version "${springDependencyManagementVersion}" apply false
 }
 
-group = 'com.gophermarket'
-version = '0.0.1-SNAPSHOT'
+allprojects {
+	group = 'com.gophermarket'
+	version = '0.0.1-SNAPSHOT'
 
-java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
+	repositories {
+		mavenCentral()
 	}
 }
 
-repositories {
-	mavenCentral()
-}
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'io.spring.dependency-management'
 
-dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
-	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-}
+	java {
+		toolchain {
+			languageVersion = JavaLanguageVersion.of(javaVersion.toInteger())
+		}
+	}
 
-tasks.named('test') {
-	useJUnitPlatform()
+	dependencyManagement {
+		imports {
+			mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+			mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+		}
+	}
+
+	dependencies {
+		testImplementation "org.junit.jupiter:junit-jupiter:${junitVersion}"
+		testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	}
+
+	tasks.named('test') {
+		useJUnitPlatform()
+	}
 }
