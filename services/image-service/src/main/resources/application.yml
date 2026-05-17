@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: image-service
+
+server:
+  port: 8090

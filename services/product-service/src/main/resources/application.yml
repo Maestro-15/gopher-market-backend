@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: product-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gophermarket
+    username: gopher
+    password: market123
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        default_schema: products
+
+  flyway:
+    enabled: true
+    schemas: products
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+server:
+  port: 8083
