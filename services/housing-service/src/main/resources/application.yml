@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: housing-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gophermarket
+    username: gopher
+    password: market123
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        default_schema: housing
+
+  flyway:
+    enabled: true
+    schemas: housing
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+server:
+  port: 8084
