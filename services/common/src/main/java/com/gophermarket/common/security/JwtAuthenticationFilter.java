@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.UUID;
 
+//Once per request filter is for making sure that the req sent by browser is only exec once
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
@@ -21,6 +22,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         this.jwtUtil = jwtUtil;
     }
 
+    //ignores the places we shouldn't require a valid token
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         return request.getRequestURI().startsWith("/api/auth/");
@@ -33,7 +35,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
         String token = extractBearerToken(request);
-
+        // validating token if it exist and checking if the thread already holds authentication or identity
         if (token != null
                 && jwtUtil.validateToken(token)
                 && SecurityContextHolder.getContext().getAuthentication() == null) {
